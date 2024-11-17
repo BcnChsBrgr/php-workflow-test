@@ -49,6 +49,7 @@ class OrderWorkflowListener implements EventSubscriberInterface
         // format: workflow.<workflow_name>.leave => function name
         return [
             'workflow.order_processing_workflow.leave' => 'onLeave',
+            // add guard to a transition: basket_submit => onOrderSubmition should check if it is a valid order
             'workflow.order_processing_workflow.guard.' . OrderWorkflow::TRANSITION_BASKET_SUBMIT => 'onOrderSubmition',
         ];
     } 
