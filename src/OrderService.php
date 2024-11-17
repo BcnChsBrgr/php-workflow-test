@@ -72,7 +72,9 @@ final class OrderService
                 $changedOrder->setProducts($products);
 
                 $this->transition($changedOrder, OrderWorkflow::TRANSITION_PENDING_ORDER);
-             }
+            } elseif ($action === OrderWorkflow::TRANSITION_PENDING_ORDER_REJECTED) {
+                $this->transition($changedOrder, OrderWorkflow::TRANSITION_PENDING_ORDER_REJECTED);
+            }
 
             return $this->order;
         } catch (Throwable $e) {
