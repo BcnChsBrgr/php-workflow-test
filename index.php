@@ -14,7 +14,8 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 $dispatcher = new EventDispatcher();
 $listener = new OrderWorkflowListener();
-$dispatcher->addListener('workflow.order_processing_workflow.leave', [$listener, 'onLeave']);
+$dispatcher->addSubscriber($listener);
+
 // create basket -> like add items to basket
 $order = new Order(1);
 $orderWorkflow = OrderWorkflow::getWorkflow($dispatcher);

@@ -72,9 +72,7 @@ final class OrderService
                 $changedOrder->setProducts($products);
 
                 $this->transition($changedOrder, OrderWorkflow::TRANSITION_PENDING_ORDER);
-            } elseif($this->orderWorkflow->can($changedOrder, $action)) {
-                $this->transition($changedOrder, $action); // supplier rejected
-            }
+             }
 
             return $this->order;
         } catch (Throwable $e) {
@@ -103,7 +101,7 @@ final class OrderService
     private function transition(Order $changedOrder, string $transition): Order
     {
         if (!$this->orderWorkflow->can($changedOrder, $transition)) {
-            echo "FAILED: Order (id {$changedOrder->id}) is transitioning $transition. " . PHP_EOL;
+            echo "FAILED: Order (id {$changedOrder->id}) is transitioning $transition. <br />" . PHP_EOL;
             return $this->order;
         }
         
