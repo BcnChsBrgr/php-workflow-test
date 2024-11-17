@@ -110,7 +110,8 @@ final class OrderService
         $state = $this->order->getState();
         $this->orderWorkflow->apply($changedOrder, $transition);
         
-        echo "Order (id {$changedOrder->id}) is transitioning $transition. ({$state}->{$changedOrder->getState()})<br />" . PHP_EOL;
+        // don't need to print the below message, the listener is doing for us
+        //echo "Order (id {$changedOrder->id}) is transitioning $transition. ({$state}->{$changedOrder->getState()})<br />" . PHP_EOL;
         
         return $this->order = $changedOrder;
     }

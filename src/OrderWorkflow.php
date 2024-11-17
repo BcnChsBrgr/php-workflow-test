@@ -27,7 +27,7 @@ final class OrderWorkflow
     public const TRANSITION_PENDING_ORDER_REJECTED = 'pending_order_rejected';
     
 
-    public static function getWorkflow(): Workflow
+    public static function getWorkflow($dispatcher): Workflow
     {
         $definitionBuilder = (new DefinitionBuilder())
         ->addPlaces([
@@ -50,7 +50,9 @@ final class OrderWorkflow
 
         return new Workflow(
             $definitionBuilder->build(),
-            new MethodMarkingStore(true, 'state')
+            new MethodMarkingStore(true, 'state'),
+            $dispatcher,
+            name: 'order_processing_workflow'
         );
     }
 }

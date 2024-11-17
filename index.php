@@ -12,9 +12,12 @@ use Symfony\Component\Workflow\Workflow;
 use Symfony\Component\Workflow\Event\GuardEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
+$dispatcher = new EventDispatcher();
+$listener = new OrderWorkflowListener();
+$dispatcher->addListener('workflow.order_processing_workflow.leave', [$listener, 'onLeave']);
 // create basket -> like add items to basket
 $order = new Order(1);
-$orderWorkflow = OrderWorkflow::getWorkflow();
+$orderWorkflow = OrderWorkflow::getWorkflow($dispatcher);
 $orderService = new OrderService($orderWorkflow, $order);
 
 // add item will not change state
